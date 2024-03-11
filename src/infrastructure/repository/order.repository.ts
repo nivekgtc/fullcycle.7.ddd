@@ -5,7 +5,6 @@ import OrderItemModel from '../db/sequelize/model/order-item.model'
 import OrderModel from '../db/sequelize/model/order.model'
 
 export default class OrderRepository implements OrderRepositoryInterface {
-  // find: (id: string) => Promise<Order>
   async findAll (): Promise<Order[]> {
     const orders = await OrderModel.findAll({
       include: ['items']
