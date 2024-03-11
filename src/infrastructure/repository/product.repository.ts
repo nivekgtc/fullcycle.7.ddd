@@ -2,56 +2,58 @@
 // import type ProductRepositoryInterface from "../../domain/repository/product-repository.interface";
 // import ProductModel from "../db/sequelize/model/product.model";
 
-import type ProductRepositoryInterface from "../../domain/repository/product-repository.interface";
+// import type ProductRepositoryInterface from '../../domain/repository/product-repository.interface'
 
-import Product from "../../domain/entity/product";
-import ProductModel from "../db/sequelize/model/product.model";
+// import Product from '../../domain/costumer/entity/product'
+import Product from '../../domain/product/entity/product'
+import type ProductRepositoryInterface from '../../domain/product/repository/product-repository.interface'
+import ProductModel from '../db/sequelize/model/product.model'
 
 export default class ProductRepository implements ProductRepositoryInterface {
-  async find(id: string): Promise<Product> {
-    throw new Error("Method not implemented.");
+  async find (id: string): Promise<Product> {
+    throw new Error('Method not implemented.')
   }
 
-  async create(entity: Product): Promise<void> {
+  async create (entity: Product): Promise<void> {
     await ProductModel.create({
       id: entity.id,
       name: entity.name,
-      price: entity.price,
-    });
+      price: entity.price
+    })
   }
 
-  async update(entity: Product): Promise<void> {
+  async update (entity: Product): Promise<void> {
     // throw new Error('Method not implemented')
     await ProductModel.update(
       {
         name: entity.name,
-        price: entity.price,
+        price: entity.price
       },
       {
-        where: { id: entity.id },
+        where: { id: entity.id }
       }
-    );
+    )
   }
 
-  async findById(id: string): Promise<Product> {
+  async findById (id: string): Promise<Product> {
     // throw new Error('Method not implemented')
     const productFinded = await ProductModel.findOne({
-      where: { id },
-    });
+      where: { id }
+    })
 
     return new Product(
       productFinded.id,
       productFinded.name,
       productFinded.price
-    );
+    )
   }
 
-  async findAll(): Promise<Product[]> {
+  async findAll (): Promise<Product[]> {
     // throw new Error('Method not implemented')
-    const allProducts = await ProductModel.findAll();
+    const allProducts = await ProductModel.findAll()
     return allProducts.map(
-      (productModel) =>
+      productModel =>
         new Product(productModel.id, productModel.name, productModel.price)
-    );
+    )
   }
 }

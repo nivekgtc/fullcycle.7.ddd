@@ -1,6 +1,12 @@
-import Order from '../../domain/entity/order'
-import OrderItem from '../../domain/entity/order_item'
-import type OrderRepositoryInterface from '../../domain/repository/order-repository.interface'
+// import Order from '../../domain/checkout/entity/order'
+// import OrderItem from '../../domain/checkout/entity/order_item'
+// import type OrderRepositoryInterface from '../../domain/checkout/repository/order-repository.interface'
+// import OrderItemModel from '../db/sequelize/model/order-item.model'
+// import OrderModel from '../db/sequelize/model/order.model'
+
+import Order from '../../domain/checkout/entity/order'
+import OrderItem from '../../domain/checkout/entity/order_item'
+import type OrderRepositoryInterface from '../../domain/checkout/repository/order-repository.interface'
 import OrderItemModel from '../db/sequelize/model/order-item.model'
 import OrderModel from '../db/sequelize/model/order.model'
 
@@ -33,7 +39,7 @@ export default class OrderRepository implements OrderRepositoryInterface {
       include: ['items']
     })
     if (!existingOrder.id) {
-      throw new Error(`Order with ID ${order.id} not found`)
+      throw new Error(`Order with ID ${entity.id} not found`)
     }
 
     existingOrder.costumer_id = entity.costumerId

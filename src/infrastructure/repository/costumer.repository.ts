@@ -1,7 +1,9 @@
-import Address from '../../domain/entity/address'
-import type Product from '../../domain/entity/costumer'
-import Costumer from '../../domain/entity/costumer'
-import type CostumerRepositoryInterface from '../../domain/repository/costumer-repository.interface'
+// import Address from '../../domain/costumer/entity/address'
+import type Product from '../../domain/costumer/entity/costumer'
+import Costumer from '../../domain/costumer/entity/costumer'
+import type CostumerRepositoryInterface from '../../domain/costumer/repository/costumer-repository.interface'
+import Address from '../../domain/costumer/value-object/address'
+// import type CostumerRepositoryInterface from '../../domain/repository/costumer-repository.interface'
 import CostumerModel from '../db/sequelize/model/costumer.model'
 
 export default class CostumerRepository implements CostumerRepositoryInterface {

@@ -1,8 +1,9 @@
 import { Sequelize } from 'sequelize-typescript'
 
 import { randomUUID } from 'node:crypto'
-import Address from '../../domain/entity/address'
-import Costumer from '../../domain/entity/costumer'
+// import Address from '../../domain/costumer/entity/address'
+import Costumer from '../../domain/costumer/entity/costumer'
+import Address from '../../domain/costumer/value-object/address'
 import CostumerModel from '../db/sequelize/model/costumer.model'
 import CostumerRepository from './costumer.repository'
 

@@ -1,10 +1,9 @@
-import Address from "./domain/entity/address"
-import Costumer from "./domain/entity/costumer"
-import Order from "./domain/entity/order"
-import OrderItem from "./domain/entity/order_item"
+// import Address from './domain/costumer/entity/address'
+import Costumer from './domain/costumer/entity/costumer'
+import Address from './domain/costumer/value-object/address'
 
-let costumer = new Costumer("123", "Kevin Cavalcanti")
-const address = new Address("Rua dois", "XX", "Inferno", "53333-100", 1)
+const costumer = new Costumer('123', 'Kevin Cavalcanti')
+const address = new Address('Rua dois', 'XX', 'Inferno', '53333-100', 1)
 costumer.Address = address
 costumer.activate()
 
