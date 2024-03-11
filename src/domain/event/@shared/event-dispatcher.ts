@@ -9,7 +9,15 @@ export default class EventDispatcher implements EventDispatcherInterface {
     return this.eventHandlers
   }
 
-  notify: (event: EventInterface) => void
+  notify (event: EventInterface): void {
+    const { name: eventName } = event.constructor
+
+    if (this.eventHandlers[eventName]) {
+      this.eventHandlers[eventName].forEach(eventHandler => {
+        eventHandler.handle(event)
+      })
+    }
+  }
 
   register (
     eventName: string,
@@ -21,10 +29,20 @@ export default class EventDispatcher implements EventDispatcherInterface {
     this.eventHandlers[eventName].push(eventHandler)
   }
 
-  unregister: (
+  unregister (
     eventName: string,
     eventHandler: EventHandlerInterface<EventInterface>
-  ) => void
+  ): void {
+    if (this.eventHandlers[eventName]) {
+      const index = this.eventHandlers[eventName].indexOf(eventHandler)
 
-  unregisterAll: () => void
+      if (index !== -1) {
+        this.eventHandlers[eventName].splice(index, 1)
+      }
+    }
+  }
+
+  unregisterAll (): void {
+    this.eventHandlers = {}
+  }
 }
