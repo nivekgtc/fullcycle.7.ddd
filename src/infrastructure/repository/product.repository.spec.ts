@@ -28,7 +28,6 @@ describe("Product repository test", () => {
     expect(2).toBeTruthy();
   });
 
-  // start
   it("should create product", async () => {
     const id = randomUUID();
 
@@ -95,5 +94,4 @@ describe("Product repository test", () => {
       price: 25,
     });
   });
-  // end
 });
