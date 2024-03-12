@@ -2,7 +2,7 @@ import EventDispatcher from '../../../@shared/event/event-dispatcher'
 import Costumer from '../../entity/costumer'
 import Address from '../../value-object/address'
 import CostumerCreatedEvent from './costumer-created.event'
-import CostumerUpdatedEvent from './costumer-updated.event'
+import CostumerUpdatedAddressEvent from './costumer-updated-address.event'
 import SendLogOneWhenCostumerCreatedHandler from './handler/send-log-one-when-costumer-created.handler'
 import SendLogTwoWhenCostumerCreatedHandler from './handler/send-log-two-when-costumer-created.handler'
 import SendLogWhenUpdatedAddressHandler from './handler/send-log-when-updated-address.handler'
@@ -47,7 +47,7 @@ describe('Costumer event handlers', () => {
     const eventHandler = new SendLogWhenUpdatedAddressHandler()
     const spyOnEventHandler = jest.spyOn(eventHandler, 'handle')
 
-    const EVENT_NAME = 'CostumerUpdatedEvent'
+    const EVENT_NAME = 'CostumerUpdatedAddressEvent'
 
     eventDispatcher.register(EVENT_NAME, eventHandler)
 
@@ -59,9 +59,10 @@ describe('Costumer event handlers', () => {
     const newAddress = new Address('Street 1', 'City 1', '', '5555555', 1)
     costumer.changeAddress(newAddress)
 
-    const costumerUpdatedEvent = new CostumerUpdatedEvent(newAddress)
+    // const costumerUpdatedEvent = new CostumerUpdatedEvent(newAddress)
+    const costumerUpdatedAddressEvent = new CostumerUpdatedAddressEvent(newAddress)
 
-    eventDispatcher.notify(costumerUpdatedEvent)
+    eventDispatcher.notify(costumerUpdatedAddressEvent)
 
     expect(spyOnEventHandler).toHaveBeenCalled()
   })

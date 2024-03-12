@@ -1,6 +1,6 @@
 import type EventInterface from '../../../@shared/event/event.interface'
 
-export default class CostumerUpdatedEvent implements EventInterface {
+export default class CostumerUpdatedAddressEvent implements EventInterface {
   dataTimeOcurred: Date
   eventData: any
 

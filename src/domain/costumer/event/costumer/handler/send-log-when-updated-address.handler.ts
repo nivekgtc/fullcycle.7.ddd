@@ -1,8 +1,9 @@
 import type EventHandlerInterface from '../../../../@shared/event/event-handler.interface'
 import type EventInterface from '../../../../@shared/event/event.interface'
+import CostumerUpdatedAddressEvent from '../costumer-updated-address.event'
 
 export default class SendLogWhenUpdatedAddressHandler
-  implements EventHandlerInterface
+  implements EventHandlerInterface<CostumerUpdatedAddressEvent>
 {
   handle (event: EventInterface): void {
     console.log(
