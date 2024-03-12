@@ -1,10 +1,9 @@
 import { Sequelize } from 'sequelize-typescript'
-// import Product from '../../domain/costumer/entity/product'
-import ProductModel from '../db/sequelize/model/product.model'
 import ProductRepository from './product.repository'
 
 import { randomUUID } from 'node:crypto'
-import Product from '../../domain/product/entity/product'
+import Product from '../../../../domain/product/entity/product'
+import ProductModel from './product.model'
 
 describe('Product repository test', () => {
   let sequelize: Sequelize

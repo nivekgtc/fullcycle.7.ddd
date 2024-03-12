@@ -1,13 +1,6 @@
-// import Product from "../../domain/entity/product";
-// import type ProductRepositoryInterface from "../../domain/repository/product-repository.interface";
-// import ProductModel from "../db/sequelize/model/product.model";
-
-// import type ProductRepositoryInterface from '../../domain/repository/product-repository.interface'
-
-// import Product from '../../domain/costumer/entity/product'
-import Product from '../../domain/product/entity/product'
-import type ProductRepositoryInterface from '../../domain/product/repository/product-repository.interface'
-import ProductModel from '../db/sequelize/model/product.model'
+import Product from '../../../../domain/product/entity/product'
+import type ProductRepositoryInterface from '../../../../domain/product/repository/product-repository.interface'
+import ProductModel from './product.model'
 
 export default class ProductRepository implements ProductRepositoryInterface {
   async find (id: string): Promise<Product> {
@@ -23,7 +16,6 @@ export default class ProductRepository implements ProductRepositoryInterface {
   }
 
   async update (entity: Product): Promise<void> {
-    // throw new Error('Method not implemented')
     await ProductModel.update(
       {
         name: entity.name,
@@ -36,7 +28,6 @@ export default class ProductRepository implements ProductRepositoryInterface {
   }
 
   async findById (id: string): Promise<Product> {
-    // throw new Error('Method not implemented')
     const productFinded = await ProductModel.findOne({
       where: { id }
     })
@@ -49,7 +40,6 @@ export default class ProductRepository implements ProductRepositoryInterface {
   }
 
   async findAll (): Promise<Product[]> {
-    // throw new Error('Method not implemented')
     const allProducts = await ProductModel.findAll()
     return allProducts.map(
       productModel =>

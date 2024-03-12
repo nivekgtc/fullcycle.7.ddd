@@ -1,10 +1,7 @@
-// import Address from '../../domain/costumer/entity/address'
-import type Product from '../../domain/costumer/entity/costumer'
-import Costumer from '../../domain/costumer/entity/costumer'
-import type CostumerRepositoryInterface from '../../domain/costumer/repository/costumer-repository.interface'
-import Address from '../../domain/costumer/value-object/address'
-// import type CostumerRepositoryInterface from '../../domain/repository/costumer-repository.interface'
-import CostumerModel from '../db/sequelize/model/costumer.model'
+import Costumer from '../../../../domain/costumer/entity/costumer'
+import type CostumerRepositoryInterface from '../../../../domain/costumer/repository/costumer-repository.interface'
+import Address from '../../../../domain/costumer/value-object/address'
+import CostumerModel from './costumer.model'
 
 export default class CostumerRepository implements CostumerRepositoryInterface {
   async find (id: string): Promise<Costumer> {
@@ -31,7 +28,7 @@ export default class CostumerRepository implements CostumerRepositoryInterface {
     return costumer
   }
 
-  async create (entity: Product): Promise<void> {
+  async create (entity: Costumer): Promise<void> {
     await CostumerModel.create({
       id: entity.id,
       name: entity.name,
