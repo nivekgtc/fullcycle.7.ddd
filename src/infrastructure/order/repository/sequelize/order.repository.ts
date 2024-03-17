@@ -5,7 +5,7 @@ import OrderItemModel from './order-item.model'
 import OrderModel from './order.model'
 
 export default class OrderRepository implements OrderRepositoryInterface {
-  async findAll (): Promise<Order[]> {
+  async findAll(): Promise<Order[]> {
     const orders = await OrderModel.findAll({
       include: ['items']
     })
@@ -21,13 +21,13 @@ export default class OrderRepository implements OrderRepositoryInterface {
         )
       })
 
-      return new Order(order.id, order.costumer_id, orderItems)
+      return new Order(order.id, order.customer_id, orderItems)
     })
 
     return mappedOrders
   }
 
-  async update (entity: Order): Promise<void> {
+  async update(entity: Order): Promise<void> {
     const existingOrder = await OrderModel.findOne({
       where: { id: entity.id },
       include: ['items']
@@ -36,11 +36,11 @@ export default class OrderRepository implements OrderRepositoryInterface {
       throw new Error(`Order with ID ${entity.id} not found`)
     }
 
-    existingOrder.costumer_id = entity.costumerId
+    existingOrder.customer_id = entity.customerId
 
     const mappedOrderToModel = {
       id: entity.id,
-      costumer_id: entity.costumerId,
+      customer_id: entity.customerId,
       total: entity.total(),
       items: entity.items.map(item => ({
         id: item.id,
@@ -87,7 +87,7 @@ export default class OrderRepository implements OrderRepositoryInterface {
     await existingOrder.save()
   }
 
-  async find (id: string): Promise<Order> {
+  async find(id: string): Promise<Order> {
     const orderFinded = await OrderModel.findOne({
       where: { id },
       include: ['items']
@@ -104,15 +104,15 @@ export default class OrderRepository implements OrderRepositoryInterface {
         )
     )
 
-    const order = new Order(orderFinded.id, orderFinded.costumer_id, orderItems)
+    const order = new Order(orderFinded.id, orderFinded.customer_id, orderItems)
 
     return order
   }
 
-  async create (entity: Order): Promise<void> {
+  async create(entity: Order): Promise<void> {
     const mappedOrderToModel = {
       id: entity.id,
-      costumer_id: entity.costumerId,
+      customer_id: entity.customerId,
       total: entity.total(),
       items: entity.items.map(item => ({
         id: item.id,
@@ -131,32 +131,32 @@ export default class OrderRepository implements OrderRepositoryInterface {
     })
   }
 
-  // async find (id: string): Promise<Costumer> {
-  //   let costumerModel
+  // async find (id: string): Promise<Customer> {
+  //   let customerModel
   //   try {
-  //     costumerModel = await CostumerModel.findOne({
+  //     customerModel = await CustomerModel.findOne({
   //       where: { id },
   //       rejectOnEmpty: true
   //     })
   //   } catch (error) {
-  //     throw new Error('Costumer not found')
+  //     throw new Error('Customer not found')
   //   }
 
-  //   const costumer = new Costumer(id, costumerModel.name)
+  //   const customer = new Customer(id, customerModel.name)
   //   const address = new Address(
-  //     costumerModel.street,
-  //     costumerModel.city,
+  //     customerModel.street,
+  //     customerModel.city,
   //     '',
-  //     costumerModel.zipcode,
-  //     costumerModel.number
+  //     customerModel.zipcode,
+  //     customerModel.number
   //   )
 
-  //   costumer.changeAddress(address)
-  //   return costumer
+  //   customer.changeAddress(address)
+  //   return customer
   // }
 
   // async create (entity: Product): Promise<void> {
-  //   await CostumerModel.create({
+  //   await CustomerModel.create({
   //     id: entity.id,
   //     name: entity.name,
   //     active: entity.isActive(),
@@ -168,9 +168,9 @@ export default class OrderRepository implements OrderRepositoryInterface {
   //   })
   // }
 
-  // async update (entity: Costumer): Promise<void> {
+  // async update (entity: Customer): Promise<void> {
   //   // throw new Error('Method not implemented')
-  //   await CostumerModel.update(
+  //   await CustomerModel.update(
   //     {
   //       name: entity.name,
   //       ...entity
@@ -181,33 +181,33 @@ export default class OrderRepository implements OrderRepositoryInterface {
   //   )
   // }
 
-  // async findById (id: string): Promise<Costumer> {
-  //   const costumerFinded = await CostumerModel.findOne({
+  // async findById (id: string): Promise<Customer> {
+  //   const customerFinded = await CustomerModel.findOne({
   //     where: { id }
   //   })
 
-  //   return new Costumer(costumerFinded.id, costumerFinded.name)
+  //   return new Customer(customerFinded.id, customerFinded.name)
   // }
 
-  // async findAll (): Promise<Costumer[]> {
-  //   const allCostumers = await CostumerModel.findAll()
-  //   return allCostumers.map(costumerModel => {
-  //     const costumer = new Costumer(costumerModel.id, costumerModel.name)
-  //     costumer.addRewardPoints(costumerModel.rewardPoints)
+  // async findAll (): Promise<Customer[]> {
+  //   const allCustomers = await CustomerModel.findAll()
+  //   return allCustomers.map(customerModel => {
+  //     const customer = new Customer(customerModel.id, customerModel.name)
+  //     customer.addRewardPoints(customerModel.rewardPoints)
   //     const address = new Address(
-  //       costumerModel.street,
-  //       costumerModel.city,
+  //       customerModel.street,
+  //       customerModel.city,
   //       '',
-  //       costumerModel.zipcode,
-  //       costumerModel.number
+  //       customerModel.zipcode,
+  //       customerModel.number
   //     )
-  //     costumer.changeAddress(address)
+  //     customer.changeAddress(address)
 
-  //     if (costumerModel.active) {
-  //       costumer.activate()
+  //     if (customerModel.active) {
+  //       customer.activate()
   //     }
 
-  //     return costumer
+  //     return customer
   //   })
   // }
 }

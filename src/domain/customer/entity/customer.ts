@@ -6,31 +6,31 @@ import type Address from '../value-object/address'
 // Complexidade de negócio
 // Domain
 // - Entity
-//     - costumer.ts (regra de negócio)
+//     - customer.ts (regra de negócio)
 
 // Complexidade acidental
 // infra - Mundo externo
 //     - Entity / Model
 //     - - cstumer.ts (get, set)
 
-export default class Costumer {
+export default class Customer {
   private readonly _id: string
   private _name: string = ''
   private _address!: Address
   private _active: boolean = false
   private _rewardPoints: number = 0
 
-  constructor (id: string, name: string) {
+  constructor(id: string, name: string) {
     this._id = id
     this._name = name
     this.validate()
   }
 
-  changeAddress (address: Address): void {
+  changeAddress(address: Address): void {
     this._address = address
   }
 
-  validate (): void {
+  validate(): void {
     if (this._name.length === 0) {
       throw new Error('Name is required')
     }
@@ -40,47 +40,47 @@ export default class Costumer {
     }
   }
 
-  isActive (): boolean {
+  isActive(): boolean {
     return this._active
   }
 
-  get id (): string {
+  get id(): string {
     return this._id
   }
 
-  get name (): string {
+  get name(): string {
     return this._name
   }
 
-  get rewardPoints (): number {
+  get rewardPoints(): number {
     return this._rewardPoints
   }
 
-  changeName (name: string): void {
+  changeName(name: string): void {
     this._name = name
     this.validate()
   }
 
-  activate (): void {
+  activate(): void {
     if (this._address === undefined) {
-      throw new Error('Address is mandatory to activate a costumer')
+      throw new Error('Address is mandatory to activate a customer')
     }
     this._active = true
   }
 
-  deactivate (): void {
+  deactivate(): void {
     this._active = false
   }
 
-  addRewardPoints (points: number): void {
+  addRewardPoints(points: number): void {
     this._rewardPoints += points
   }
 
-  set Address (address: Address) {
+  set Address(address: Address) {
     this._address = address
   }
 
-  get Address (): Address {
+  get Address(): Address {
     return this._address
   }
 }

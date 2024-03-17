@@ -1,17 +1,18 @@
-// import Costumer from "../entity/costumer"
+// import Customer from "../entity/customer"
 // import Order from "../entity/order"
 // import OrderItem from "../entity/order_item"
 // import OrderService from "./order.service"
 
 import { randomUUID as uuid } from 'node:crypto'
-import Costumer from '../../costumer/entity/costumer'
+// import Customer from '../../customer/entity/customer'
+import Customer from '../../customer/entity/customer'
 import Order from '../entity/order'
 import OrderItem from '../entity/order_item'
 import OrderService from './order.service'
 
 describe('OrderService unit tests', () => {
   it('should place an order', () => {
-    const customer = new Costumer('c1', 'Customer 1')
+    const customer = new Customer('c1', 'Customer 1')
     const item1 = new OrderItem('1', 'Item 1', 10, 'p1', 1)
 
     const order = OrderService.placeOrder(customer, [item1])
@@ -33,7 +34,7 @@ describe('OrderService unit tests', () => {
   })
 
   it('should add reward points', () => {
-    const customer = new Costumer(uuid(), 'Costumer')
+    const customer = new Customer(uuid(), 'Customer')
     expect(customer.rewardPoints).toBe(0)
 
     customer.addRewardPoints(10)

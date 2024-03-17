@@ -7,7 +7,7 @@ import {
   PrimaryKey,
   Table
 } from 'sequelize-typescript'
-import CostumerModel from '../../../costumer/repository/sequelize/costumer.model'
+import CustomerModel from '../../../customer/repository/sequelize/customer.model'
 import OrderItemModel from './order-item.model'
 
 @Table({
@@ -19,14 +19,14 @@ export default class OrderModel extends Model {
   @Column
   declare id: string
 
-  @ForeignKey(() => CostumerModel)
+  @ForeignKey(() => CustomerModel)
   @Column({
     allowNull: false
   })
-  declare costumer_id: string
+  declare customer_id: string
 
-  @BelongsTo(() => CostumerModel)
-  declare costumer: CostumerModel
+  @BelongsTo(() => CustomerModel)
+  declare customer: CustomerModel
 
   @HasMany(() => OrderItemModel)
   declare items: OrderItemModel[]

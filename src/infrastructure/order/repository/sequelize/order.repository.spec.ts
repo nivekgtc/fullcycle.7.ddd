@@ -2,11 +2,11 @@ import { Sequelize } from 'sequelize-typescript'
 
 import Order from '../../../../domain/checkout/entity/order'
 import OrderItem from '../../../../domain/checkout/entity/order_item'
-import Costumer from '../../../../domain/costumer/entity/costumer'
-import Address from '../../../../domain/costumer/value-object/address'
+import Customer from '../../../../domain/customer/entity/customer'
+import Address from '../../../../domain/customer/value-object/address'
 import Product from '../../../../domain/product/entity/product'
-import CostumerModel from '../../../costumer/repository/sequelize/costumer.model'
-import CostumerRepository from '../../../costumer/repository/sequelize/costumer.repository'
+import CustomerModel from '../../../customer/repository/sequelize/customer.model'
+import CustomerRepository from '../../../customer/repository/sequelize/customer.repository'
 import ProductModel from '../../../product/repository/sequelize/product.model'
 import ProductRepository from '../../../product/repository/sequelize/product.repository'
 import OrderItemModel from './order-item.model'
@@ -25,7 +25,7 @@ describe('Order repository test', () => {
     })
 
     sequelize.addModels([
-      CostumerModel,
+      CustomerModel,
       ProductModel,
       OrderModel,
       OrderItemModel
@@ -38,11 +38,11 @@ describe('Order repository test', () => {
   })
 
   it('Should create a new order', async () => {
-    const costumerRepository = new CostumerRepository()
-    const costumer = new Costumer('123', 'Costumer 1')
+    const customerRepository = new CustomerRepository()
+    const customer = new Customer('123', 'Customer 1')
     const address = new Address('Street 1', '123', '', '55555555', 1)
-    costumer.changeAddress(address)
-    await costumerRepository.create(costumer)
+    customer.changeAddress(address)
+    await customerRepository.create(customer)
 
     const productRepository = new ProductRepository()
     const product = new Product('1', 'Product 1', 20)
@@ -67,7 +67,7 @@ describe('Order repository test', () => {
 
     expect(orderModel.toJSON()).toStrictEqual({
       id: order.id,
-      costumer_id: '123',
+      customer_id: '123',
       total: order.total(),
       items: [
         {
@@ -84,11 +84,11 @@ describe('Order repository test', () => {
   })
 
   it('Should find a created order', async () => {
-    const costumerRepository = new CostumerRepository()
-    const costumer = new Costumer('123', 'Costumer 1')
+    const customerRepository = new CustomerRepository()
+    const customer = new Customer('123', 'Customer 1')
     const address = new Address('Street 1', '123', '', '55555555', 1)
-    costumer.changeAddress(address)
-    await costumerRepository.create(costumer)
+    customer.changeAddress(address)
+    await customerRepository.create(customer)
 
     const productRepository = new ProductRepository()
     const product = new Product('1', 'Product 1', 20)
@@ -110,7 +110,7 @@ describe('Order repository test', () => {
 
     expect(foundOrder).toBeDefined()
     expect(foundOrder.id).toBe(order.id)
-    expect(foundOrder.costumerId).toBe(order.costumerId)
+    expect(foundOrder.customerId).toBe(order.customerId)
     expect(foundOrder.items.length).toBe(1)
 
     const foundOrderItem = foundOrder.items[0]
@@ -121,11 +121,11 @@ describe('Order repository test', () => {
   })
 
   it('Should update an existing order', async () => {
-    const costumerRepository = new CostumerRepository()
-    const costumer = new Costumer('123', 'Costumer 1')
+    const customerRepository = new CustomerRepository()
+    const customer = new Customer('123', 'Customer 1')
     const address = new Address('Street 1', '123', '', '55555555', 1)
-    costumer.changeAddress(address)
-    await costumerRepository.create(costumer)
+    customer.changeAddress(address)
+    await customerRepository.create(customer)
 
     const productRepository = new ProductRepository()
     const product = new Product('1', 'Product 1', 20)
@@ -163,19 +163,19 @@ describe('Order repository test', () => {
   })
 
   it('Should find all orders', async () => {
-    const costumerRepository = new CostumerRepository()
+    const customerRepository = new CustomerRepository()
     const productRepository = new ProductRepository()
     const orderRepository = new OrderRepository()
 
-    const costumer1 = new Costumer('1', 'Costumer 1')
+    const customer1 = new Customer('1', 'Customer 1')
     const address1 = new Address('Street 1', '123', '', '55555555', 1)
-    costumer1.changeAddress(address1)
-    await costumerRepository.create(costumer1)
+    customer1.changeAddress(address1)
+    await customerRepository.create(customer1)
 
-    const costumer2 = new Costumer('2', 'Costumer 2')
+    const customer2 = new Customer('2', 'Customer 2')
     const address2 = new Address('Street 2', '456', '', '66666666', 2)
-    costumer2.changeAddress(address2)
-    await costumerRepository.create(costumer2)
+    customer2.changeAddress(address2)
+    await customerRepository.create(customer2)
 
     const product1 = new Product('1', 'Product 1', 20)
     await productRepository.create(product1)
@@ -198,10 +198,10 @@ describe('Order repository test', () => {
       3
     )
 
-    const order1 = new Order('1', costumer1.id, [orderItem1])
+    const order1 = new Order('1', customer1.id, [orderItem1])
     await orderRepository.create(order1)
 
-    const order2 = new Order('2', costumer2.id, [orderItem2])
+    const order2 = new Order('2', customer2.id, [orderItem2])
     await orderRepository.create(order2)
 
     const allOrders = await orderRepository.findAll()
@@ -210,12 +210,12 @@ describe('Order repository test', () => {
 
     const order1Found = allOrders.find(order => order.id === order1.id)
     expect(order1Found).toBeDefined()
-    expect(order1Found?.costumerId).toBe(costumer1.id)
+    expect(order1Found?.customerId).toBe(customer1.id)
     expect(order1Found?.items.length).toBe(1)
 
     const order2Found = allOrders.find(order => order.id === order2.id)
     expect(order2Found).toBeDefined()
-    expect(order2Found?.costumerId).toBe(costumer2.id)
+    expect(order2Found?.customerId).toBe(customer2.id)
     expect(order2Found?.items.length).toBe(1)
   })
 })

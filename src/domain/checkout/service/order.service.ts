@@ -1,13 +1,13 @@
-// import Costumer from "../entity/costumer";
+// import Customer from "../entity/customer";
 // import Order from "../entity/order";
 // import OrderItem from "../entity/order_item";
 import { randomUUID } from 'node:crypto'
-import type Costumer from '../../costumer/entity/costumer'
+import type Customer from '../../customer/entity/customer'
 import Order from '../entity/order'
 import type OrderItem from '../entity/order_item'
 
 export default class OrderService {
-  static placeOrder (customer: Costumer, items: OrderItem[]): Order {
+  static placeOrder(customer: Customer, items: OrderItem[]): Order {
     if (items.length === 0) {
       throw new Error('Items are required')
     }
@@ -19,7 +19,7 @@ export default class OrderService {
     return order
   }
 
-  static total (orders: Order[]): number {
+  static total(orders: Order[]): number {
     return orders.reduce((acc, order) => acc + order.total(), 0)
   }
 }
